@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1018884318686",
+    "project_id": "specterra-staff",
+    "storage_bucket": "specterra-staff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018884318686:android:94948f4cecd041c3cb694f",
+        "android_client_info": {
+          "package_name": "com.specterra.specterra_staff"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8u-ZRWtTRc3iLzHwkx_A8wUoErgRByzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
