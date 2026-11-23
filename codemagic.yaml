@@ -1,0 +1,26 @@
+workflows:
+  android-release:
+    name: Specterra Staff Android Release
+    max_build_duration: 120
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      java: 17
+      android_signing:
+        - specterra_upload
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      cancel_previous_builds: true
+    scripts:
+      - name: Install Flutter dependencies
+        script: flutter pub get
+      - name: Build signed Android APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+      - build/**/outputs/**/mapping.txt
