@@ -6,8 +6,6 @@ workflows:
     environment:
       flutter: stable
       java: 17
-      android_signing:
-        - specterra_upload
     triggering:
       events:
         - push

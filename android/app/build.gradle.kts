@@ -43,12 +43,13 @@ android {
 
     signingConfigs {
         create("release") {
-            if (System.getenv("CI").toBoolean()) {
-                storeFile = file(System.getenv("CM_KEYSTORE_PATH"))
+            val codemagicKeystorePath = System.getenv("CM_KEYSTORE_PATH")
+            if (System.getenv("CI").toBoolean() && !codemagicKeystorePath.isNullOrBlank()) {
+                storeFile = file(codemagicKeystorePath)
                 storePassword = System.getenv("CM_KEYSTORE_PASSWORD")
                 keyAlias = System.getenv("CM_KEY_ALIAS")
                 keyPassword = System.getenv("CM_KEY_PASSWORD")
-            } else {
+            } else if (!System.getenv("CI").toBoolean()) {
                 storeFile = keystoreProperties.getProperty("storeFile")?.let { rootProject.file(it) }
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
@@ -59,7 +60,14 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (
+                System.getenv("CI").toBoolean() &&
+                System.getenv("CM_KEYSTORE_PATH").isNullOrBlank()
+            ) {
+                signingConfigs.getByName("debug")
+            } else {
+                signingConfigs.getByName("release")
+            }
         }
     }
 }
